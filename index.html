@@ -141,8 +141,8 @@
   <h1>One design file.<br>A <span class="grad">complete OPC&nbsp;UA server</span>.</h1>
   <p class="lede">quasarnova is a family of model-driven OPC UA server engines for
   industrial control. You describe your device in a single XML design; an engine turns
-  it into a running, standards-compliant server — in C++ for the plant floor, or in
-  pure Python for everything around it.</p>
+  it into a running, standards-compliant server — pip-installable Python today,
+  industrial C++ with Pub/Sub next. Same file, no code generation, no vendor lock-in.</p>
   <div class="cta">
     <a class="btn primary" href="https://github.com/quasarnova-team/kilonova">Get started</a>
     <a class="btn ghost" href="https://quasarnova-team.github.io/kilonova/">Documentation</a>
@@ -190,39 +190,30 @@ $ kilonova run --design Design.xml \
     <h2>A family of engines</h2>
     <p class="sub">Same design language, different engines — each built for the place
     where it is strongest. Named for the brightest events in the sky.</p>
-    <div class="family">
+    <div class="family" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
       <div class="engine">
-        <div class="name"><svg viewBox="0 0 32 32"><path fill="#ff7a45" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>supernova</div>
+        <div class="name"><svg viewBox="0 0 32 32"><path fill="#ffb347" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>kilonova <span style="font-size:12px; font-family:var(--mono); color:#3ecf7a; margin-left:6px;">AVAILABLE NOW</span></div>
+        <div class="role">Python engine</div>
+        <p>The same design file served in pure Python — no code generation, no compiler,
+        no build step. Device simulators, test rigs, FAT/SAT stand-ins, CI test doubles
+        and edge gateways, live in seconds. Blocking device logic is safe by design.
+        Passes the upstream framework's complete public conformance suite on every commit.</p>
+        <div class="status"><a href="https://pypi.org/project/kilonova/"><img src="https://img.shields.io/pypi/v/kilonova?color=3ecf7a&label=pypi" alt="PyPI version" style="vertical-align:middle;"></a> · <a href="https://quasarnova-team.github.io/kilonova/">docs</a> · <a href="https://github.com/quasarnova-team/kilonova">repo</a></div>
+      </div>
+      <div class="engine">
+        <div class="name"><svg viewBox="0 0 32 32"><path fill="#ff7a45" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>supernova <span style="font-size:12px; font-family:var(--mono); color:var(--accent-2); margin-left:6px;">IN DEVELOPMENT</span></div>
         <div class="role">C++ engine</div>
         <p>The full model-driven framework: generated address space, device-logic
         scaffolding, configuration and build system — extended with OPC UA Pub/Sub
         (publisher and subscriber) on both supported OPC UA stacks. For the servers
-        that run the plant.</p>
-        <div class="status"><span class="dot dev"></span>in development · <a href="https://github.com/quasarnova-team/supernova">repo</a></div>
-      </div>
-      <div class="engine">
-        <div class="name"><svg viewBox="0 0 32 32"><path fill="#ffb347" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>kilonova</div>
-        <div class="role">Python engine</div>
-        <p>The same design file served in pure Python — no code generation, no compiler,
-        no build step. Prototyping, simulators, CI test doubles and soft servers,
-        live in seconds. Blocking device logic is safe by design.</p>
-        <div class="status"><span class="dot live"></span>v1.1 · <a href="https://pypi.org/project/kilonova/">PyPI</a> · <a href="https://github.com/quasarnova-team/kilonova">repo</a></div>
-      </div>
-      <div class="engine">
-        <div class="name"><svg viewBox="0 0 32 32"><path fill="#7c8cff" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>dwarfnova</div>
-        <div class="role">Client generation</div>
-        <p>Typed client libraries generated from the same design — so the systems that
-        talk to your servers are checked against the same model that built them.</p>
-        <div class="status"><span class="dot plan"></span>planned</div>
-      </div>
-      <div class="engine">
-        <div class="name"><svg viewBox="0 0 32 32"><path fill="#98a2ba" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>rednova</div>
-        <div class="role">SCADA integration</div>
-        <p>Bridging designs into SCADA and HMI tooling: address generation, type
-        mapping and integration glue, derived — not hand-copied — from the model.</p>
-        <div class="status"><span class="dot plan"></span>planned</div>
+        that run the plant. Not released yet; progress is public.</p>
+        <div class="status"><span class="dot dev"></span><a href="https://github.com/quasarnova-team/supernova/milestone/1">first-release milestone</a> · <a href="https://github.com/quasarnova-team/supernova">repo</a></div>
       </div>
     </div>
+    <p class="sub" style="margin-top: 22px; margin-bottom: 0; font-size: 14.5px;">
+    On the roadmap, no code yet: <b style="color: var(--ink);">dwarfnova</b> (typed client
+    libraries generated from the same design) and <b style="color: var(--ink);">rednova</b>
+    (SCADA/HMI integration derived from the model).</p>
   </div>
 </section>
 
@@ -242,10 +233,10 @@ $ kilonova run --design Design.xml \
         upstream's master.</p>
       </div>
       <div class="principle">
-        <h3>Built for decades</h3>
-        <p>Industrial servers outlive their tools. Strict validation, no silent drops,
-        loud warnings where an engine does less than the model asks — behaviour you can
-        still reason about in ten years.</p>
+        <h3>Strict by default</h3>
+        <p>Strict validation, no silent drops, loud warnings where an engine does less
+        than the model asks. What an engine cannot do, it says out loud — at run time
+        and in the docs.</p>
       </div>
       <div class="principle">
         <h3>Open source, no lock-in</h3>
@@ -261,9 +252,10 @@ $ kilonova run --design Design.xml \
     <div class="heritage">
       <b>Heritage.</b> quasarnova builds on the lineage of the open-source
       <a href="https://github.com/quasar-team/quasar">quasar framework</a> (LGPL-3.0),
-      originally developed at CERN, where design-driven OPC UA servers have run
-      large-scale detector and accelerator control for over a decade. supernova is a
-      fork of quasar and preserves its copyright and license notices in full.
+      developed at CERN and running large-scale control systems for more than a decade.
+      quasarnova is an independent project and is not affiliated with or endorsed by
+      CERN. supernova is a fork of quasar and preserves its copyright and license
+      notices in full.
     </div>
   </div>
 </section>
