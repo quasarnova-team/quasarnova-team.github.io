@@ -178,8 +178,8 @@ $ kilonova run --design Design.xml \
 <span class="c"># device logic is plain Python:</span>
 <span class="k">@server.read</span>(<span class="s">"ps1.current"</span>)
 <span class="k">def</span> read_current(obj):
-    <span class="k">return</span> driver.read_current()  <span class="c"># blocking is fine —
-                                    # runs in a thread pool</span></pre>
+    <span class="c"># blocking is fine — runs in a thread pool</span>
+    <span class="k">return</span> driver.read_current()</pre>
       </div>
     </div>
   </div>
