@@ -141,8 +141,8 @@
   <h1>One design file.<br>A <span class="grad">complete OPC&nbsp;UA server</span>.</h1>
   <p class="lede">quasarnova is a family of model-driven OPC UA server engines for
   industrial control. You describe your device in a single XML design; an engine turns
-  it into a running, standards-compliant server — pip-installable Python today,
-  industrial C++ with Pub/Sub next. Same file, no code generation, no vendor lock-in.</p>
+  it into a running, standards-compliant server — pip-installable Python, and
+  industrial C++ with OPC UA Pub/Sub. Same file, no code generation, no vendor lock-in.</p>
   <div class="cta">
     <a class="btn primary" href="https://github.com/quasarnova-team/kilonova">Get started</a>
     <a class="btn ghost" href="https://quasarnova-team.github.io/kilonova/">Documentation</a>
@@ -201,13 +201,14 @@ $ kilonova run --design Design.xml \
         <div class="status"><a href="https://pypi.org/project/kilonova/"><img src="https://img.shields.io/pypi/v/kilonova?color=3ecf7a&label=pypi" alt="PyPI version" style="vertical-align:middle;"></a> · <a href="https://quasarnova-team.github.io/kilonova/">docs</a> · <a href="https://github.com/quasarnova-team/kilonova">repo</a></div>
       </div>
       <div class="engine">
-        <div class="name"><svg viewBox="0 0 32 32"><path fill="#ff7a45" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>supernova <span style="font-size:12px; font-family:var(--mono); color:var(--accent-2); margin-left:6px;">IN DEVELOPMENT</span></div>
+        <div class="name"><svg viewBox="0 0 32 32"><path fill="#ff7a45" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>supernova <span style="font-size:12px; font-family:var(--mono); color:var(--accent-2); margin-left:6px;">RELEASED — EARLY</span></div>
         <div class="role">C++ engine</div>
         <p>The full model-driven framework: generated address space, device-logic
-        scaffolding, configuration and build system — extended with OPC UA Pub/Sub
-        (publisher and subscriber) on both supported OPC UA stacks. For the servers
-        that run the plant. Not released yet; progress is public.</p>
-        <div class="status"><span class="dot dev"></span><a href="https://github.com/quasarnova-team/supernova/milestone/1">first-release milestone</a> · <a href="https://github.com/quasarnova-team/supernova">repo</a></div>
+        scaffolding, configuration and build system — extended with OPC UA Pub/Sub:
+        publisher and subscriber, UADP over UDP, on both supported OPC UA stacks,
+        arrays included. For the servers that run the plant. Young release —
+        hardening continues in the open.</p>
+        <div class="status"><a href="https://github.com/quasarnova-team/supernova/releases/latest"><img src="https://img.shields.io/github/v/release/quasarnova-team/supernova?label=release&color=ffb347" alt="Latest release" style="vertical-align:middle;"></a> · <a href="https://github.com/quasarnova-team/supernova/blob/master/Documentation/source/PubSub.rst">Pub/Sub docs</a> · <a href="https://github.com/quasarnova-team/supernova">repo</a></div>
       </div>
     </div>
     <p class="sub" style="margin-top: 22px; margin-bottom: 0; font-size: 14.5px;">
