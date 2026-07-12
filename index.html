@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>quasarnova — model-driven OPC UA servers</title>
+<meta name="description" content="quasarnova is an open-source family of model-driven OPC UA server engines for industrial control — one design file, a complete server, from C++ to pure Python.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23ff7a45' d='M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0b0e1a;
+    --panel: #121727;
+    --panel-2: #1a2138;
+    --rule: #232c47;
+    --ink: #e8eaf2;
+    --muted: #98a2ba;
+    --accent: #ff7a45;
+    --accent-2: #ffb347;
+    --cool: #7c8cff;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--sans);
+    line-height: 1.6; font-size: 17px;
+    background-image:
+      radial-gradient(1100px 500px at 75% -10%, rgba(124,140,255,.10), transparent 60%),
+      radial-gradient(900px 480px at 15% -5%, rgba(255,122,69,.08), transparent 55%);
+  }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+
+  header { padding: 26px 0; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; color: var(--ink); letter-spacing: .01em; }
+  .brand svg { width: 22px; height: 22px; }
+  nav .links { margin-left: auto; display: flex; gap: 22px; font-size: 15px; }
+  nav .links a { color: var(--muted); }
+  nav .links a:hover { color: var(--ink); text-decoration: none; }
+
+  .hero { padding: 84px 0 60px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12.5px; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  h1 {
+    font-size: clamp(38px, 6vw, 62px); line-height: 1.06; letter-spacing: -0.02em;
+    margin: 18px 0 22px; font-weight: 800; max-width: 17ch;
+  }
+  h1 .grad {
+    background: linear-gradient(92deg, var(--accent) 10%, var(--accent-2) 60%, var(--cool) 110%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .lede { font-size: 20px; color: var(--muted); max-width: 62ch; }
+  .cta { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btn {
+    display: inline-block; padding: 11px 22px; border-radius: 9px; font-weight: 600;
+    font-size: 15.5px; transition: transform .12s ease;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .btn.primary { background: linear-gradient(92deg, var(--accent), #ff9558); color: #14100c; }
+  .btn.ghost { border: 1px solid var(--rule); color: var(--ink); background: rgba(255,255,255,.02); }
+  .pipline {
+    font-family: var(--mono); font-size: 14.5px; color: var(--muted);
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 9px; padding: 11px 16px;
+  }
+  .pipline b { color: var(--ink); font-weight: 600; }
+
+  section { padding: 58px 0; border-top: 1px solid var(--rule); }
+  h2 { font-size: 30px; letter-spacing: -0.015em; margin-bottom: 10px; }
+  .sub { color: var(--muted); max-width: 68ch; margin-bottom: 34px; }
+
+  .how { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: stretch; }
+  .card {
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden;
+  }
+  .card .head {
+    padding: 9px 16px; border-bottom: 1px solid var(--rule); background: var(--panel-2);
+    font-family: var(--mono); font-size: 12px; letter-spacing: .12em; color: var(--muted);
+  }
+  .card pre {
+    padding: 18px; font-family: var(--mono); font-size: 13.5px; line-height: 1.7;
+    color: var(--ink); overflow-x: auto;
+  }
+  .card pre .c { color: var(--muted); }
+  .card pre .k { color: var(--accent-2); }
+  .card pre .s { color: var(--cool); }
+
+  .family { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .engine { background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; }
+  .engine .name { font-weight: 700; font-size: 19px; display: flex; align-items: center; gap: 10px; }
+  .engine .name svg { width: 15px; height: 15px; flex: none; }
+  .engine .role { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 6px 0 12px; }
+  .engine p { font-size: 15px; color: var(--muted); flex: 1; }
+  .engine .status { margin-top: 16px; font-size: 13px; font-family: var(--mono); }
+  .status .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; }
+  .dot.live { background: #3ecf7a; } .dot.dev { background: var(--accent-2); } .dot.plan { background: #5a6684; }
+
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 26px; }
+  .principle h3 { font-size: 17px; margin-bottom: 8px; }
+  .principle p { font-size: 15px; color: var(--muted); }
+
+  .heritage {
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 12px;
+    padding: 26px 30px; color: var(--muted); font-size: 15.5px; max-width: 74ch;
+  }
+  .heritage b { color: var(--ink); }
+
+  footer { border-top: 1px solid var(--rule); padding: 34px 0 46px; color: var(--muted); font-size: 14px; }
+  footer .row { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+  footer .row .right { margin-left: auto; }
+
+  @media (max-width: 820px) {
+    .how { grid-template-columns: 1fr; }
+    .hero { padding: 56px 0 44px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <nav>
+    <span class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ff7a45" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>
+      quasarnova
+    </span>
+    <span class="links">
+      <a href="#how">How it works</a>
+      <a href="#family">Engines</a>
+      <a href="#principles">Principles</a>
+      <a href="https://github.com/quasarnova-team">GitHub</a>
+    </span>
+  </nav>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">open-source · model-driven · OPC UA</div>
+  <h1>One design file.<br>A <span class="grad">complete OPC&nbsp;UA server</span>.</h1>
+  <p class="lede">quasarnova is a family of model-driven OPC UA server engines for
+  industrial control. You describe your device in a single XML design; an engine turns
+  it into a running, standards-compliant server — in C++ for the plant floor, or in
+  pure Python for everything around it.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/quasarnova-team/kilonova">Get started</a>
+    <a class="btn ghost" href="https://quasarnova-team.github.io/kilonova/">Documentation</a>
+    <span class="pipline">$ <b>pip install kilonova</b></span>
+  </div>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="sub">The design is the single source of truth: your objects, variables,
+    methods, types and constraints, in one declarative file. Engines consume it directly —
+    the address space, configuration validation and device-logic plumbing come for free,
+    and every engine serves the same server.</p>
+    <div class="how">
+      <div class="card">
+        <div class="head">Design.xml — your device model</div>
+        <pre>&lt;<span class="k">d:class</span> name=<span class="s">"PowerSupply"</span>&gt;
+  &lt;<span class="k">d:cachevariable</span> name=<span class="s">"voltage"</span>
+      dataType=<span class="s">"OpcUa_Double"</span> ... /&gt;
+  &lt;<span class="k">d:sourcevariable</span> name=<span class="s">"current"</span>
+      addressSpaceRead=<span class="s">"synchronous"</span> ... /&gt;
+  &lt;<span class="k">d:method</span> name=<span class="s">"switchOn"</span>/&gt;
+&lt;/<span class="k">d:class</span>&gt;</pre>
+      </div>
+      <div class="card">
+        <div class="head">terminal — a live server in seconds</div>
+        <pre>$ pip install kilonova
+$ kilonova run --design Design.xml \
+               --config config.xml
+<span class="c">serving on opc.tcp://0.0.0.0:4841/  (Ctrl-C to stop)</span>
+
+<span class="c"># device logic is plain Python:</span>
+<span class="k">@server.read</span>(<span class="s">"ps1.current"</span>)
+<span class="k">def</span> read_current(obj):
+    <span class="k">return</span> driver.read_current()  <span class="c"># blocking is fine —
+                                    # runs in a thread pool</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="family">
+  <div class="wrap">
+    <h2>A family of engines</h2>
+    <p class="sub">Same design language, different engines — each built for the place
+    where it is strongest. Named for the brightest events in the sky.</p>
+    <div class="family">
+      <div class="engine">
+        <div class="name"><svg viewBox="0 0 32 32"><path fill="#ff7a45" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>supernova</div>
+        <div class="role">C++ engine</div>
+        <p>The full model-driven framework: generated address space, device-logic
+        scaffolding, configuration and build system — extended with OPC UA Pub/Sub
+        (publisher and subscriber) on both supported OPC UA stacks. For the servers
+        that run the plant.</p>
+        <div class="status"><span class="dot dev"></span>in development · <a href="https://github.com/quasarnova-team/supernova">repo</a></div>
+      </div>
+      <div class="engine">
+        <div class="name"><svg viewBox="0 0 32 32"><path fill="#ffb347" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>kilonova</div>
+        <div class="role">Python engine</div>
+        <p>The same design file served in pure Python — no code generation, no compiler,
+        no build step. Prototyping, simulators, CI test doubles and soft servers,
+        live in seconds. Blocking device logic is safe by design.</p>
+        <div class="status"><span class="dot live"></span>v1.1 · <a href="https://pypi.org/project/kilonova/">PyPI</a> · <a href="https://github.com/quasarnova-team/kilonova">repo</a></div>
+      </div>
+      <div class="engine">
+        <div class="name"><svg viewBox="0 0 32 32"><path fill="#7c8cff" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>dwarfnova</div>
+        <div class="role">Client generation</div>
+        <p>Typed client libraries generated from the same design — so the systems that
+        talk to your servers are checked against the same model that built them.</p>
+        <div class="status"><span class="dot plan"></span>planned</div>
+      </div>
+      <div class="engine">
+        <div class="name"><svg viewBox="0 0 32 32"><path fill="#98a2ba" d="M16 1l3.2 11.8L31 16l-11.8 3.2L16 31l-3.2-11.8L1 16l11.8-3.2z"/></svg>rednova</div>
+        <div class="role">SCADA integration</div>
+        <p>Bridging designs into SCADA and HMI tooling: address generation, type
+        mapping and integration glue, derived — not hand-copied — from the model.</p>
+        <div class="status"><span class="dot plan"></span>planned</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="principles">
+  <div class="wrap">
+    <h2>Principles</h2>
+    <div class="principles" style="margin-top: 30px;">
+      <div class="principle">
+        <h3>One model, many engines</h3>
+        <p>The design file is the contract. Engines may differ in language and runtime;
+        the server a client sees is the same, attribute by attribute.</p>
+      </div>
+      <div class="principle">
+        <h3>Conformance, proven</h3>
+        <p>kilonova passes the complete public conformance suite of the upstream quasar
+        framework — every case, checked on every commit, re-checked nightly against
+        upstream's master.</p>
+      </div>
+      <div class="principle">
+        <h3>Built for decades</h3>
+        <p>Industrial servers outlive their tools. Strict validation, no silent drops,
+        loud warnings where an engine does less than the model asks — behaviour you can
+        still reason about in ten years.</p>
+      </div>
+      <div class="principle">
+        <h3>Open source, no lock-in</h3>
+        <p>supernova is LGPL-3.0; kilonova is BSD-2-Clause. Standard OPC UA on the wire,
+        standard tooling everywhere else. Leave whenever you like — you won't want to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="heritage">
+      <b>Heritage.</b> quasarnova builds on the lineage of the open-source
+      <a href="https://github.com/quasar-team/quasar">quasar framework</a> (LGPL-3.0),
+      originally developed at CERN, where design-driven OPC UA servers have run
+      large-scale detector and accelerator control for over a decade. supernova is a
+      fork of quasar and preserves its copyright and license notices in full.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>© 2026 the quasarnova team</span>
+    <span class="right"><a href="https://github.com/quasarnova-team">github.com/quasarnova-team</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
