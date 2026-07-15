@@ -1,0 +1,172 @@
+[
+ {
+  "name": "dip/demo/cryo/temperature",
+  "description": "DIP bridge: dip/demo/cryo/temperature",
+  "address": "opc.udp://239.0.0.12:14840",
+  "endpoints": {},
+  "publisherId": 900,
+  "publisherIdType": "UINT16",
+  "writerGroupId": 1,
+  "dataSetWriterId": 2,
+  "fields": [
+   {
+    "name": "temperature",
+    "type": "DOUBLE"
+   }
+  ],
+  "live": {
+   "stale": false,
+   "lastSeen": 1784117701.356052,
+   "ageSeconds": 0.029,
+   "rateHz": 9.94,
+   "messages": 35632,
+   "lost": 0,
+   "signed": false
+  },
+  "leaseExpired": true,
+  "registeredAt": 1784114061.4851537
+ },
+ {
+  "name": "dip/demo/machine/energy",
+  "description": "DIP bridge: dip/demo/machine/energy",
+  "address": "opc.udp://239.0.0.12:14840",
+  "endpoints": {},
+  "publisherId": 900,
+  "publisherIdType": "UINT16",
+  "writerGroupId": 1,
+  "dataSetWriterId": 1,
+  "fields": [
+   {
+    "name": "energy",
+    "type": "DOUBLE"
+   },
+   {
+    "name": "current",
+    "type": "DOUBLE"
+   }
+  ],
+  "live": {
+   "stale": false,
+   "lastSeen": 1784117701.220461,
+   "ageSeconds": 0.165,
+   "rateHz": 9.93,
+   "messages": 35632,
+   "lost": 0,
+   "signed": false
+  },
+  "leaseExpired": true,
+  "registeredAt": 1784114061.4840374
+ },
+ {
+  "name": "site/demo/agg/mirror",
+  "description": "FX link env",
+  "address": "opc.udp://239.0.0.7:14840",
+  "endpoints": {},
+  "publisherId": 91,
+  "publisherIdType": "UINT16",
+  "writerGroupId": 200,
+  "dataSetWriterId": 1,
+  "fields": [
+   {
+    "name": "temperature",
+    "type": "DOUBLE"
+   },
+   {
+    "name": "count",
+    "type": "INT32"
+   }
+  ],
+  "live": {
+   "stale": false,
+   "lastSeen": 1784117701.337116,
+   "ageSeconds": 0.048,
+   "rateHz": 19.76,
+   "messages": 70822,
+   "lost": 0,
+   "signed": false
+  },
+  "leaseExpired": true,
+  "registeredAt": 1784114070.6416833,
+  "fx": {
+   "connection": "env",
+   "publisher": {
+    "server": "opc.tcp://localhost:48521",
+    "entity": "telemetry",
+    "dataset": "env"
+   },
+   "subscriber": {
+    "server": "opc.tcp://localhost:48522",
+    "entity": "monitor",
+    "dataset": "envMirror"
+   }
+  }
+ },
+ {
+  "name": "site/demo/field/env",
+  "description": "real supernova C++ field server (e2e-pub, open62541) \u2014 counter/temperature ~10 Hz",
+  "address": "opc.udp://239.0.0.5:4840",
+  "endpoints": {
+   "officenet": "opc.udp://172.31.0.20:24840"
+  },
+  "publisherId": 42,
+  "publisherIdType": "UINT16",
+  "writerGroupId": 100,
+  "dataSetWriterId": 1,
+  "fields": [
+   {
+    "name": "counter",
+    "type": "INT32"
+   },
+   {
+    "name": "temperature",
+    "type": "DOUBLE"
+   },
+   {
+    "name": "label",
+    "type": "STRING"
+   }
+  ],
+  "live": {
+   "stale": false,
+   "lastSeen": 1784117701.337291,
+   "ageSeconds": 0.048,
+   "rateHz": 9.86,
+   "messages": 35427,
+   "lost": 0,
+   "signed": false
+  },
+  "leaseExpired": true,
+  "registeredAt": 1784114061.2355134
+ },
+ {
+  "name": "site/demo/field/power",
+  "description": "same field server, second dataset \u2014 a populated namespace to search",
+  "address": "opc.udp://239.0.0.5:4840",
+  "endpoints": {},
+  "publisherId": 42,
+  "publisherIdType": "UINT16",
+  "writerGroupId": 100,
+  "dataSetWriterId": 2,
+  "fields": [
+   {
+    "name": "counter",
+    "type": "INT32"
+   },
+   {
+    "name": "temperature",
+    "type": "DOUBLE"
+   }
+  ],
+  "live": {
+   "stale": false,
+   "lastSeen": 1784117701.3373053,
+   "ageSeconds": 0.048,
+   "rateHz": 9.86,
+   "messages": 35427,
+   "lost": 0,
+   "signed": false
+  },
+  "leaseExpired": true,
+  "registeredAt": 1784114061.2511628
+ }
+]
